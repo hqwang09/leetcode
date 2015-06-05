@@ -1,2 +1,2 @@
 # leetcode
-repository for leetcode functions
+repository for leetcode functions HongQiang
