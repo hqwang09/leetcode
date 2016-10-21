@@ -36,7 +36,7 @@ The substring "BBBB" has the longest repeating letters, which is 4.
 #include <map>
 #include <algorithm>
 #include <gtest/gtest.h>
-namespace hqwang
+namespace
 {
 class Solution {
 public:
@@ -75,17 +75,12 @@ public:
 };
 }
 
-TEST(FindLongTest, LeetCodeExamples){
-	hqwang::Solution sl;
+TEST(P424_FindLongTest, LeetCodeExamples){
+	Solution sl;
 	std::string s1 = "ABAB", s2 = "AABABBA";
 	EXPECT_EQ(sl.findLong(s1, 2, 'C'), 2);
 	EXPECT_EQ(sl.findLong(s1, 2, 'A'), 4);
 	EXPECT_EQ(sl.findLong(s2, 1, 'A'), 4);
 	EXPECT_EQ(sl.findLong(s2, 1, 'B'), 4);
-}
-
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
 }
 
