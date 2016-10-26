@@ -31,7 +31,7 @@ Output: "45"
 namespace{
 class Solution {
 public:
-    std::string originalDigits(std::string s) {
+    std::string originalDigits2(std::string s) {
     	std::map<char, int> m;
     	std::vector<std::string> numStrs = {"zero", "two",
     			"six", "seven", "five", "eight", "three",
@@ -65,51 +65,38 @@ public:
     	}
     	return res;
     }
-    bool dfs(std::string& res, int k,
-    		std::vector<std::string>& nums,
-			std::map<char, int>& m, int total)
-    {
-    	std::cout<<"res = "<<res<<", k = "<<k<<", total = "<<total<<std::endl;
-    	if(total == 0)return true;
-    	if(k > 9)return false;
-    	std::string s = nums[k];
-        if(hasK(m, s))
-        {
-        	res.push_back(k+'0');
-        	deleteM(m, s);
-        	total -= s.size();
-        }
-        else
-        {
-        	k = k+1;
-        }
-      	if(dfs(res, k, nums, m, total)) return true;
-      	else
-      	{
-      	    std::cout<<"to add res = "<<res<<", "<<*res.rbegin()-'0'<<std::endl;
-            std::string t = nums[res.back()-'0'];
-      	    addM(m, t);
-            res.pop_back();
-            total += t.size();
-            return dfs(res, k+1, nums, m, total);
-      	}
-    }
-    void addM(std::map<char, int>& m, const std::string& s)
-    {
-    	for(unsigned int i = 0; i != s.size(); ++i)m[s[i]]++;
-    }
-    void deleteM(std::map<char, int>& m, const std::string& s)
-    {
-    	for(unsigned int i = 0; i != s.size(); ++i)m[s[i]]--;
-    }
-    bool hasK(std::map<char, int>& m, const std::string& s)
-    {
+    std::string originalDigits(std::string s) {
+        std::vector<int> count(10,0);
+        std::string res;
         for(unsigned int i = 0; i != s.size(); ++i)
-        {
-        	if(m[s[i]] == 0) return false;
-        }
-        return true;
+		{
+			if(s[i] == 'z')++count[0];      //0
+			else if(s[i] == 'w')++count[2]; //2
+			else if(s[i] == 'x')++count[6]; //6
+			else if(s[i] == 'u')++count[4]; //4
+			else if(s[i] == 'g')++count[8]; //8
+
+			else if(s[i] == 'h')++count[3]; //8, 3
+			else if(s[i] == 'o')++count[1]; //0,1,2,4
+			else if(s[i] == 'f')++count[5]; //4, 5
+			else if(s[i] == 'v')++count[7]; //5, 7
+			else if(s[i] == 'i')++count[9]; //5,6,8,9
+		}
+		count[3] -= count[8];
+		count[1] -= count[0] + count[2] + count[4];
+		count[5] -= count[4];
+		count[7] -= count[5];
+		count[9] -= count[5] + count[6] + count[8];
+		for(int i = 0; i != 10; ++i)
+		{
+			for(int j = 0; j < count[i]; ++j)
+			{
+			    res.push_back('0'+i);
+			}
+		}
+		return res;
     }
+
 };
 }//end of anonymous namespace
 
